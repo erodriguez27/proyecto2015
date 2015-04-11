@@ -1,64 +1,53 @@
+#ifndef ELEMENT_H
+#define ELEMENT_H
+
 #include <iostream>
-#include <string>
 #include <list>
+#include <string>
 
-using std::list
+using std::list;
+using std::string;
 
-class Element{
-	
+class Element
+{
 	private:
-		string tagName;
-		list<string> attrList;
-		string innerHTML;
+		string tag, inner;
+		list<string> attribute;
+
 	public:
-		Element (string tag,list<string> attr){tagName=tag,attrlist=attr,innerHTML=NULL;}
-		string tagName();
-		list<string> attributeList();
-		string innerHTML();
-		void setTagName(string newtag);
-		void setAttributeList(list<string> newattr);
-		void setInnerHTML(string nHTML);
-		Element& operator =(const Element &e);
+							/** 	CONSTRUCTORES	**/
+							
+		Element (): tag(""), inner(""){};				 				/// CONSTRUCTOR
+	
+		Element (string tag): tag(tag), inner(""){};			 		/// CONSTRUCTOR
 		
+		Element (string tag, list <string> l): tag(tag), attribute(l){};/// CONSTRUCTOR
+		
+		Element (string tag, string inner, list <string> l): tag(tag), inner(inner), attribute(l){}; /// CONSTRUCTOR
+		
+		Element (const Element &e): tag(e.tag), inner(e.inner), attribute(e.attribute){}			 /// CONSTRUCTOR COPIA
+		 
+		void operator = (const Element &a)				 				/// SOBRECARGA DEL OPERADOR = PARA ASIGNAR UN ELEMENT A OTRO	
+		{
+			tag = a.tag;
+			inner = a.inner;
+			attribute = a.attribute;
+		}
+
+							/** 	OBSERVADORES	**/
+							
+		string tagName () const {return (tag);}				 			/// OBSERVADOR TAG
+		
+		list<string> attributeList() {return (attribute);}		 		/// OBSERVADOR ATTRIBUTE
+	
+		string innerHTML() {return (inner);}				 			/// OBSERVADOR INNER
+	
+							/** 	MODIFICADORES	**/
+							
+		void setTagName(string x) {tag = x;}				 			/// MODIFICADOR TAG
+		
+		void setAttributeList (list<string> x) {attribute = x;}		 	/// MODIFICADOR ATTRIBUTE
+		
+		void setInnerHTML (string x) {inner = x;}			  	 		/// MODIFICADOR INNER
 };
-
-string Element:: tagName(){
-	
-	return(tagName);
-}
-
-list<string> Element:: attributeList(){
-	
-	return(attrList);
-}
-
-string Element:: innerHTML(){
-	
-	return(innerHTML);
-}
-
-void Element:: setTagName(string newtag){
-	
-	tagName=newtag;
-}
-
-void Element:: setAttributeList(list<string> newattr){
-	
-	attrList=newattr;
-}
-
-void Element:: setInnerHTML(string nHTML){
-	
-	innerHTML=nHTML;
-	
-}
-
-Element& Element:: operator =(const Element &e){
-	
-	if(this!=&e){
-		this.tagName= e->tagName;
-		this.attrList= e->attrList;
-		this.innerHTML= e->innerHTML;
-	}
-	
-}
+#endif 
